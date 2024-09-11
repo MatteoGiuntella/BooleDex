@@ -44,36 +44,36 @@ export default {
 <template>
   <div class="container">
     <Search />
-    <div class="card bg-dark mt-2">
+    <div class="bg-white mt-2">
       <div v-if="singlePokemon">
         <div class="box-img mx-auto">
-          <img
-            :src="singlePokemon.sprites.front_default"
-            class="card-img-top"
-            alt="..."
-          />
+          <img :src="singlePokemon.sprites.front_default" class="" alt="..." />
         </div>
-        <div class="card-body">
-          <h5 class="card-title text-white">{{ singlePokemon.name }}</h5>
-          <p class="card-text text-white">
-            Tipo : {{ singlePokemon.types[0].type.name }}
-          </p>
+        <div class="">
+          <h5 class="">{{ singlePokemon.name }}</h5>
+          <p class="">Tipo : {{ singlePokemon.types[0].type.name }}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li v-for="elem in singlePokemon.stats" class="list-group-item">
-        
-            <div class="">
-                <p class=" text-start">{{ elem.stat.name }}</p>
+          <li
+            v-for="elem in singlePokemon.stats"
+            :key="elem.stat.name"
+            class="list-group-item"
+          >
+            <div class="d-flex justify-content-between align-items-baseline">
+              <div class="text-start me-3" style="min-width: 100px">
+                {{ elem.stat.name }}
+              </div>
               <div
-                class="progress d-flex flex-grow-1"
+                class="progress flex-grow-1"
                 role="progressbar"
-                aria-label="Basic example"
+                aria-label="Success example 1px high"
                 :aria-valuenow="elem.base_stat"
                 aria-valuemin="0"
                 aria-valuemax="100"
+                style="height: 5px"
               >
                 <div
-                  class="progress-bar"
+                  class="progress-bar bg-success"
                   :style="{ width: elem.base_stat + '%' }"
                 ></div>
               </div>
@@ -82,19 +82,26 @@ export default {
         </ul>
       </div>
 
-      <!-- <div class="card-body">
-        <button type="button" class="btn btn-light mt-3">Light</button>
-      </div> -->
+      <div class="card-body">
+        <button class="btn btn-dark m-3"><-</button>
+        <button type="button" class="btn btn-dark my-3">
+          <img
+            src="/public/img/Poke_Ball.webp"
+            width="40"
+            height="34"
+            alt="cattura"
+            tool="cattura"
+          />
+        </button>
+        <button class="btn btn-dark m-3">-></button>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.card{
-    padding: 0 !important;
-}
 .box-img {
-  height: 150px;
+  height: 100px;
   width: 150px;
   img {
     width: 100%;

@@ -13,9 +13,9 @@ export default {
 
 <template>
    <form class="d-flex mt-2" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Inserisci qui il pokemon..." aria-label="Search">
   
-        <button type="submit" class="btn btn-light">Light</button>
+        <button type="submit" class="btn btn-dark">cerca</button>
       </form>
 </template>
 
