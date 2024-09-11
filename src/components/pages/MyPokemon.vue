@@ -15,7 +15,7 @@ export default {
   <div class="overflow-y-auto">
     <div class="row">
       <div class="col-12">
-        <ul class="bg-white mt-3">
+        <ul class="bg-white mt-2">
           <li class="list-unstyled">
             <div class="d-flex justify-content-between">
               <div class="d-flex align-items-center">
