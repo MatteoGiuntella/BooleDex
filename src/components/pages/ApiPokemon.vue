@@ -23,6 +23,11 @@ export default {
       }
     },
     async GetSinglePokemon() {
+      if (this.counter < 0) {
+        this.counter = this.pokemons.length - 1;
+      } else if (this.counter >= this.pokemons.length) {
+        this.counter = 0;
+      }
       try {
         const response = await axios.get(this.pokemons[this.counter].url);
         this.singlePokemon = response.data;
@@ -30,6 +35,14 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    nextPokemon() {
+      this.counter++;
+      this.GetSinglePokemon();
+    },
+    previousPokemon() {
+      this.counter--;
+      this.GetSinglePokemon();
     },
   },
   components: {
@@ -86,7 +99,7 @@ export default {
       </div>
 
       <div class="card-body">
-        <button class="btn m-3"><i class="fa-solid fa-circle-left fa-2xl" style="color: #000000;"></i></button>
+        <button class="btn m-3" @click="previousPokemon"><i class="fa-solid fa-circle-left fa-2xl" style="color: #000000;"></i></button>
         <button type="submit" class="btn my-3">
           <img
             src="/public/img/Poke_Ball.webp"
@@ -96,7 +109,7 @@ export default {
             tool="cattura"
           />
         </button>
-        <button class="btn m-3"><i class="fa-solid fa-circle-right fa-2xl" style="color: #000000;"></i></button>
+        <button class="btn m-3" @click="nextPokemon"><i class="fa-solid fa-circle-right fa-2xl" style="color: #000000;"></i></button>
       </div>
     </div>
   </div>

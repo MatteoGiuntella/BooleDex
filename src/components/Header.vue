@@ -14,17 +14,17 @@ export default {
         <img
           src="/public/img/Poke_Ball.webp"
           alt="Logo"
-          width="40"
-          height="34"
+          width="100"
+          height="94"
           class="d-inline-block align-text-top"
         />
       </div>
       <div>
         <img
-          src=""
+          src="/public/img/titolo.png"
           alt="Logo"
-          width="40"
-          height="34"
+          width="300"
+          height="100"
           class="d-inline-block align-text-top"
         />
       </div>
