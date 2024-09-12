@@ -20,7 +20,13 @@ export default {
         />
       </div>
       <div>
-        <h1>BooleDex</h1>
+        <img
+          src=""
+          alt="Logo"
+          width="40"
+          height="34"
+          class="d-inline-block align-text-top"
+        />
       </div>
     </div>
   </header>

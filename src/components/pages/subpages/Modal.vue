@@ -11,11 +11,11 @@ export default {
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn btn-primary"
+    class="btn box-modal"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-    v
+  <i class="fa-regular fa-eye fa-lg" style="color: #20d214;"></i>
   </button>
 
   <!-- Modal -->
@@ -53,4 +53,7 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.box-modal{
+  text-align: center;
+}</style>

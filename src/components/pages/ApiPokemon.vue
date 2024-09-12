@@ -38,6 +38,9 @@ export default {
   created() {
     this.GetPokemons();
   },
+  computed:{
+    // qui metto le variabili reattive da vedere!
+  }
 };
 </script>
 
@@ -83,8 +86,8 @@ export default {
       </div>
 
       <div class="card-body">
-        <button class="btn btn-dark m-3"><-</button>
-        <button type="button" class="btn btn-dark my-3">
+        <button class="btn m-3"><i class="fa-solid fa-circle-left fa-2xl" style="color: #000000;"></i></button>
+        <button type="submit" class="btn my-3">
           <img
             src="/public/img/Poke_Ball.webp"
             width="40"
@@ -93,7 +96,7 @@ export default {
             tool="cattura"
           />
         </button>
-        <button class="btn btn-dark m-3">-></button>
+        <button class="btn m-3"><i class="fa-solid fa-circle-right fa-2xl" style="color: #000000;"></i></button>
       </div>
     </div>
   </div>
