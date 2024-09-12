@@ -1,6 +1,7 @@
 <script>
 import Search from "./subpages/Search.vue";
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -28,6 +29,7 @@ export default {
       } else if (this.counter >= this.pokemons.length) {
         this.counter = 0;
       }
+
       try {
         const response = await axios.get(this.pokemons[this.counter].url);
         this.singlePokemon = response.data;
@@ -44,6 +46,15 @@ export default {
       this.counter--;
       this.GetSinglePokemon();
     },
+    catchPokemon() {
+      if (this.singlePokemon) {
+        const caughtPokemons = JSON.parse(localStorage.getItem('caughtPokemons')) || [];
+        caughtPokemons.push(this.singlePokemon);
+        localStorage.setItem('caughtPokemons', JSON.stringify(caughtPokemons));
+        this.$emit('pokemon-caught', this.singlePokemon); // Emette l'evento con il Pokémon catturato
+        alert(`${this.singlePokemon.name} è stato catturato!`);
+      }
+    }
   },
   components: {
     Search,
@@ -51,9 +62,6 @@ export default {
   created() {
     this.GetPokemons();
   },
-  computed:{
-    // qui metto le variabili reattive da vedere!
-  }
 };
 </script>
 
@@ -99,8 +107,10 @@ export default {
       </div>
 
       <div class="card-body">
-        <button class="btn m-3" @click="previousPokemon"><i class="fa-solid fa-circle-left fa-2xl" style="color: #000000;"></i></button>
-        <button type="submit" class="btn my-3">
+        <button class="btn m-3" @click="previousPokemon">
+          <i class="fa-solid fa-circle-left fa-2xl" style="color: #000000;"></i>
+        </button>
+        <button type="submit" class="btn my-3" @click="catchPokemon">
           <img
             src="/public/img/Poke_Ball.webp"
             width="40"
@@ -109,7 +119,9 @@ export default {
             tool="cattura"
           />
         </button>
-        <button class="btn m-3" @click="nextPokemon"><i class="fa-solid fa-circle-right fa-2xl" style="color: #000000;"></i></button>
+        <button class="btn m-3" @click="nextPokemon">
+          <i class="fa-solid fa-circle-right fa-2xl" style="color: #000000;"></i>
+        </button>
       </div>
     </div>
   </div>

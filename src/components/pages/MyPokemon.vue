@@ -1,10 +1,13 @@
 <script>
 import Modal from "./subpages/Modal.vue";
+
 export default {
-  data() {
-    return {};
+  props: {
+    caughtPokemons: {
+      type: Array,
+      required: true,
+    },
   },
-  methods: {},
   components: {
     Modal,
   },
@@ -16,24 +19,19 @@ export default {
     <div class="row">
       <div class="col-12">
         <ul class="p-0">
-          <li class="list-unstyled bg-white mt-2">
+          <li v-for="pokemon in caughtPokemons" :key="pokemon.name" class="list-unstyled bg-white mt-2">
             <div class="d-flex justify-content-between align-items-center p-2">
               <div class="d-flex align-items-center">
                 <img
-                  src=""
+                  :src="pokemon.sprites.front_default"
                   alt="poke"
-                  style="
-                    width: 50px;
-                    height: 50px;
-                    object-fit: cover;
-                    margin-right: 10px;
-                  "
+                  style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;"
                 />
-                <h5 class="m-0">nome</h5>
+                <h5 class="m-0">{{ pokemon.name }}</h5>
               </div>
               <div class="d-flex justify-content-end">
                 <button class="btn me-2">
-                    <Modal />
+                  <Modal />
                 </button>
                 <button class="btn">
                   <div class="box-button">
@@ -53,13 +51,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.box-button{
+.box-button {
   height: 50px;
   width: 50px;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: center;
   }
-}</style>
+}
+</style>
