@@ -8,13 +8,14 @@ export default {
       pokemons: [],
       singlePokemon: null,
       counter: 0,
+      searchQuery: '', 
     };
   },
   methods: {
     async GetPokemons() {
       try {
         const response = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon?offset=200&limit=200"
+          `https://pokeapi.co/api/v2/pokemon?offset=200&limit=200`
         );
         this.pokemons = response.data.results;
         this.GetSinglePokemon();
@@ -38,6 +39,37 @@ export default {
         console.log(error);
       }
     },
+    async handleSearch(query) {
+      this.searchQuery = query;
+      const pokemon = this.pokemons.find(pokemon =>
+        pokemon.name.toLowerCase() === this.searchQuery.toLowerCase()
+      );
+      if (pokemon) {
+        try {
+          const response = await axios.get(pokemon.url);
+          this.singlePokemon = response.data;
+          console.log(this.singlePokemon);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        // Gestione del caso in cui il Pokémon non è trovato
+        console.log("Pokémon non trovato");
+      }
+    },
+    async selectSuggestion(pokemonName) {
+      this.searchQuery = pokemonName;
+      const pokemon = this.pokemons.find(p => p.name.toLowerCase() === pokemonName.toLowerCase());
+      if (pokemon) {
+        try {
+          const response = await axios.get(pokemon.url);
+          this.singlePokemon = response.data;
+          console.log(this.singlePokemon);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
     nextPokemon() {
       this.counter++;
       this.GetSinglePokemon();
@@ -51,10 +83,10 @@ export default {
         const caughtPokemons = JSON.parse(localStorage.getItem('caughtPokemons')) || [];
         caughtPokemons.push(this.singlePokemon);
         localStorage.setItem('caughtPokemons', JSON.stringify(caughtPokemons));
-        this.$emit('pokemon-caught', this.singlePokemon); // Emette l'evento con il Pokémon catturato
+        this.$emit('pokemon-caught', this.singlePokemon); 
         alert(`${this.singlePokemon.name} è stato catturato!`);
       }
-    }
+    },
   },
   components: {
     Search,
@@ -67,8 +99,12 @@ export default {
 
 <template>
   <div class="container">
-    <Search />
-    <div class="bg-white mt-2">
+    <Search 
+      :suggestions="pokemons"
+      @search="handleSearch"
+      @select-suggestion="selectSuggestion"
+    />
+    <div class="bg-white mt-3 border-1 rounded-3">
       <div v-if="singlePokemon">
         <div class="box-img mx-auto">
           <img :src="singlePokemon.sprites.front_default" class="" alt="..." />

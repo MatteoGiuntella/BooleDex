@@ -17,6 +17,9 @@ export default {
       this.caughtPokemons.push(pokemon);
       localStorage.setItem('caughtPokemons', JSON.stringify(this.caughtPokemons));
     },
+    handleUpdateCaughtPokemons(updatedPokemons) {
+      this.caughtPokemons = updatedPokemons;
+    }
   },
   components: {
     ApiPokemon,
@@ -24,7 +27,7 @@ export default {
   },
   created() {
     this.loadCaughtPokemons();
-  },
+  }
 };
 </script>
 
@@ -36,12 +39,13 @@ export default {
           <ApiPokemon @pokemon-caught="updateCaughtPokemons" />
         </div>
         <div class="col-6 r-box">
-          <MyPokemon :caughtPokemons="caughtPokemons" />
+          <MyPokemon :caughtPokemons="caughtPokemons" @update-caught-pokemons="handleUpdateCaughtPokemons" />
         </div>
       </div>
     </div>
   </main>
 </template>
+
 
 <style lang="scss" scoped>
 main {

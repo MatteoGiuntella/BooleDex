@@ -9,7 +9,7 @@ export default {
 
 <template>
   <header>
-    <div class="container-fluid d-flex align-items-center justify-content-center ">
+    <div class="container-fluid d-flex align-items-center justify-content-center shadow-lg ">
       <div class=" me-4">
         <img
           src="/public/img/Poke_Ball.webp"
