@@ -40,17 +40,17 @@ export default {
       <input 
         v-model="query"
         @input="onInput"
-        class="form-control me-2" 
+        class="form-control me-2 g" 
         type="search" 
         placeholder="Search..." 
         aria-label="Search"
       >
     </form>
-    <ul v-if="isOpen" class="list-group mt-2">
+    <ul v-if="isOpen" class="list-group mt-2 g">
       <li 
         v-for="suggestion in suggestions.filter(pokemon => pokemon.name.toLowerCase().includes(query.toLowerCase()))" 
         :key="suggestion.name" 
-        class="list-group-item list-group-item-action"
+        class="list-group-item list-group-item-action g"
         @click="selectSuggestion(suggestion)"
       >
         {{ suggestion.name }}
@@ -60,5 +60,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+.g{
+  background-color: #9FB5A2;
+}
 </style>

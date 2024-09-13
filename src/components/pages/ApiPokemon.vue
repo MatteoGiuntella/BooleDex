@@ -10,7 +10,8 @@ export default {
       counter: 0,
       searchQuery: '',
       flag: false,
-      intervalId: null, 
+      intervalId: null,
+      showModal: false,
     };
   },
   methods: {
@@ -55,7 +56,6 @@ export default {
           console.log(error);
         }
       } else {
-        // Gestione del caso in cui il Pokémon non è trovato
         console.log("Pokémon non trovato");
       }
     },
@@ -86,9 +86,12 @@ export default {
         caughtPokemons.push(this.singlePokemon);
         localStorage.setItem('caughtPokemons', JSON.stringify(caughtPokemons));
         this.$emit('pokemon-caught', this.singlePokemon); 
-        alert(`${this.singlePokemon.name} è stato catturato!`);
+        this.showModal = true;
       }
     },
+    closeModal() {
+      this.showModal = false;
+    }
   },
   components: {
     Search,
@@ -122,14 +125,14 @@ export default {
       @search="handleSearch"
       @select-suggestion="selectSuggestion"
     />
-    <div class="bg-white mt-3 border-1 rounded-3">
+    <div class="bg mt-3 border-1 rounded-3">
       <div v-if="singlePokemon">
         <div class="box-img mx-auto">
           <img :src="currentImg" class="" alt="..." />
         </div>
         <div class="">
           <h4 class="">{{ singlePokemon.name }}</h4>
-          <h5 class="">Type : {{ singlePokemon.types[0].type.name }}</h5>
+          <h5 class="">{{ singlePokemon.types[0].type.name }}</h5>
         </div>
         <ul class="list-group list-group-flush">
           <li
@@ -178,10 +181,69 @@ export default {
         </button>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div v-if="showModal" class="modal shadow-lg" tabindex="-1" style="display: block;" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex justify-content-between close">
+            <h5 class="modal-title">Pokémon Catturato!</h5>
+            <button type="button" class="close rounded-3" @click="closeModal">
+              <span class=" fw-bold">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body close">
+            <div class="box-img-2 mx-auto">
+              <img :src="singlePokemon.sprites.other.showdown.front_default" class=" " alt="..." />
+            </div>
+            <div class="">
+              <h4 class="">{{ singlePokemon.name }}</h4>
+              <h5 class="">{{ singlePokemon.types[0].type.name }}</h5>
+              <ul class="list-group list-group-flush">
+                <li
+                  v-for="elem in singlePokemon.stats"
+                  :key="elem.stat.name"
+                  class="list-group-item"
+                >
+                  <div class="d-flex justify-content-between align-items-baseline">
+                    <div class="text-start me-3" style="min-width: 100px">
+                      {{ elem.stat.name }}
+                    </div>
+                    <div
+                      class="progress flex-grow-1"
+                      role="progressbar"
+                      aria-label="Success example 1px high"
+                      :aria-valuenow="elem.base_stat"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style="height: 5px"
+                    >
+                      <div
+                        class="progress-bar bg-success"
+                        :style="{ width: elem.base_stat + '%' }"
+                      ></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeModal">Chiudi</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
+
 <style lang="scss" scoped>
+.bg, li, .close {
+  background-color: #9FB5A2;
+  border: 1px solid black;
+}
+
 .box-img {
   height: 100px;
   width: 150px;
@@ -189,6 +251,20 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+  }
+}
+
+.modal-backdrop {
+  display: none;
+}
+.box-img-2{
+  height: 200px;
+  width: 250px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     object-position: center;
   }
 }
