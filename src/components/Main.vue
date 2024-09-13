@@ -19,7 +19,8 @@ export default {
     },
     handleUpdateCaughtPokemons(updatedPokemons) {
       this.caughtPokemons = updatedPokemons;
-    }
+    },
+   
   },
   components: {
     ApiPokemon,
@@ -33,8 +34,8 @@ export default {
 
 <template>
   <main>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container-fluid ">
+      <div class="row shadow">
         <div class="col-6 l-box">
           <ApiPokemon @pokemon-caught="updateCaughtPokemons" />
         </div>

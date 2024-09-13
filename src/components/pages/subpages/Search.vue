@@ -42,7 +42,7 @@ export default {
         @input="onInput"
         class="form-control me-2" 
         type="search" 
-        placeholder="Inserisci qui il pokemon..." 
+        placeholder="Search..." 
         aria-label="Search"
       >
     </form>

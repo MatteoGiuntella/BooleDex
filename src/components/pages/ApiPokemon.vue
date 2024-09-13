@@ -8,7 +8,9 @@ export default {
       pokemons: [],
       singlePokemon: null,
       counter: 0,
-      searchQuery: '', 
+      searchQuery: '',
+      flag: false,
+      intervalId: null, 
     };
   },
   methods: {
@@ -94,6 +96,22 @@ export default {
   created() {
     this.GetPokemons();
   },
+  mounted() {
+    this.intervalId = setInterval(() => {
+      this.flag = !this.flag;
+    }, 3000);
+  },
+  computed: {
+    currentImg() {
+      if (this.singlePokemon) {
+        return this.flag ? this.singlePokemon.sprites.back_default : this.singlePokemon.sprites.front_default;
+      }
+      return '';
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
 };
 </script>
 
@@ -107,11 +125,11 @@ export default {
     <div class="bg-white mt-3 border-1 rounded-3">
       <div v-if="singlePokemon">
         <div class="box-img mx-auto">
-          <img :src="singlePokemon.sprites.front_default" class="" alt="..." />
+          <img :src="currentImg" class="" alt="..." />
         </div>
         <div class="">
-          <h5 class="">{{ singlePokemon.name }}</h5>
-          <p class="">Tipo : {{ singlePokemon.types[0].type.name }}</p>
+          <h4 class="">{{ singlePokemon.name }}</h4>
+          <h5 class="">Type : {{ singlePokemon.types[0].type.name }}</h5>
         </div>
         <ul class="list-group list-group-flush">
           <li
