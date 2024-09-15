@@ -9,7 +9,7 @@ export default {
 
 <template>
   <header>
-    <div class="container-fluid d-flex align-items-center justify-content-center shadow-lg ">
+    <div class="container-fluid d-flex align-items-center justify-content-center shadow-lg bg-header ">
       <div class=" me-4">
         <img
           src="/public/img/Poke_Ball.webp"
@@ -32,4 +32,6 @@ export default {
   </header>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

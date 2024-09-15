@@ -1,10 +1,12 @@
 <script>
+// Importo il componente Search e la libreria axios
 import Search from "./subpages/Search.vue";
 import axios from "axios";
 
 export default {
   data() {
     return {
+      // Inizializzo le variabili di stato per il componente
       pokemons: [],
       singlePokemon: null,
       counter: 0,
@@ -15,6 +17,7 @@ export default {
     };
   },
   methods: {
+    // Recupero la lista dei Pokémon dall'API e la memorizzo in pokemons
     async GetPokemons() {
       try {
         const response = await axios.get(
@@ -27,6 +30,7 @@ export default {
         console.log(error);
       }
     },
+    // Recupero i dettagli di un singolo Pokémon in base al contatore corrente
     async GetSinglePokemon() {
       if (this.counter < 0) {
         this.counter = this.pokemons.length - 1;
@@ -42,6 +46,7 @@ export default {
         console.log(error);
       }
     },
+    // Gestisco la ricerca di un Pokémon in base alla query inserita
     async handleSearch(query) {
       this.searchQuery = query;
       const pokemon = this.pokemons.find(pokemon =>
@@ -59,6 +64,7 @@ export default {
         console.log("Pokémon non trovato");
       }
     },
+    // Seleziono un suggerimento di ricerca e recupero i dettagli del Pokémon corrispondente
     async selectSuggestion(pokemonName) {
       this.searchQuery = pokemonName;
       const pokemon = this.pokemons.find(p => p.name.toLowerCase() === pokemonName.toLowerCase());
@@ -72,14 +78,17 @@ export default {
         }
       }
     },
+    // Passo al Pokémon successivo incrementando il contatore
     nextPokemon() {
       this.counter++;
       this.GetSinglePokemon();
     },
+    // Passo al Pokémon precedente decrementando il contatore
     previousPokemon() {
       this.counter--;
       this.GetSinglePokemon();
     },
+    // Catturo il Pokémon corrente e lo memorizzo nella localStorage
     catchPokemon() {
       if (this.singlePokemon) {
         const caughtPokemons = JSON.parse(localStorage.getItem('caughtPokemons')) || [];
@@ -89,6 +98,7 @@ export default {
         this.showModal = true;
       }
     },
+    // Chiudo il modal
     closeModal() {
       this.showModal = false;
     }
@@ -96,15 +106,18 @@ export default {
   components: {
     Search,
   },
+  // Carico i Pokémon quando il componente viene creato
   created() {
     this.GetPokemons();
   },
+  // Avvio un intervallo per alternare tra le immagini del Pokémon quando il componente è montato
   mounted() {
     this.intervalId = setInterval(() => {
       this.flag = !this.flag;
     }, 3000);
   },
   computed: {
+    // Cambio immagine del Pokémon tra fronte e retro ogni 3 secondi
     currentImg() {
       if (this.singlePokemon) {
         return this.flag ? this.singlePokemon.sprites.back_default : this.singlePokemon.sprites.front_default;
@@ -112,6 +125,7 @@ export default {
       return '';
     }
   },
+  // Pulisco l'intervallo prima di distruggere il componente
   beforeDestroy() {
     clearInterval(this.intervalId);
   },
@@ -236,7 +250,6 @@ export default {
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .bg, li, .close {
