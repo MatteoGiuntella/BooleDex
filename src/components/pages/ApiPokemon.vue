@@ -201,7 +201,7 @@ export default {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-between close">
-            <h5 class="modal-title">Pokémon Catturato!</h5>
+            <h5 class="modal-title">Caught Pokémon!</h5>
             <button type="button" class="close rounded-3" @click="closeModal">
               <span class=" fw-bold">&times;</span>
             </button>
@@ -242,9 +242,6 @@ export default {
               </ul>
             </div>
           </div>
-          <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeModal">Chiudi</button>
-          </div> -->
         </div>
       </div>
     </div>
