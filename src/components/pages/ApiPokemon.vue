@@ -201,6 +201,9 @@ export default {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-between close">
+            <div class="ash">
+              <img src="/public/img/Hoennash.webp" class=" h-100 object-fit-cover" alt="">
+            </div>
             <h5 class="modal-title">Caught Pokémon!</h5>
             <button type="button" class="close rounded-3" @click="closeModal">
               <span class=" fw-bold">&times;</span>
@@ -264,7 +267,10 @@ export default {
     object-position: center;
   }
 }
-
+.ash{
+  height: 200px;
+  width: 100px;
+}
 .modal-backdrop {
   display: none;
 }

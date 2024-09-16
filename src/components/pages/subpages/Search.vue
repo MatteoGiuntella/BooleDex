@@ -39,17 +39,16 @@ export default {
 
 };
 </script>
-
 <template>
   <!-- Container principale -->
-  <div>
+  <div class="search-container">
     <!-- Form per la ricerca -->
     <form class="d-flex mt-2" role="search" @submit="onSearch">
       <!-- Campo di input per la ricerca -->
       <input 
         v-model="query"  
         @input="onInput"
-        class="form-control me-2 g" 
+        class="form-control me-2 " 
         type="search" 
         placeholder="Search..." 
         aria-label="Search"
@@ -57,12 +56,12 @@ export default {
        <!-- Ascolto l'evento input e chiamo il metodo onInput -->
     </form>
     <!-- Lista dei suggerimenti, mostrata solo se isOpen è true -->
-    <ul v-if="isOpen" class="list-group mt-2 g">
+    <ul v-if="isOpen" class="list-group mt-2 suggestion-list">
       <!-- Ciclo attraverso le suggestions filtrate in base alla query -->
       <li 
         v-for="suggestion in suggestions.filter(pokemon => pokemon.name.toLowerCase().includes(query.toLowerCase()))" 
         :key="suggestion.name" 
-        class="list-group-item list-group-item-action g"
+        class="list-group-item list-group-item-action "
         @click="selectSuggestion(suggestion)" 
       ><!-- Chiamo selectSuggestion quando si clicca su un suggerimento -->
         {{ suggestion.name }} <!-- Mostro il nome del suggerimento -->
@@ -71,9 +70,29 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
-/* Stile per gli elementi con la classe g */
+<style scoped>
 .g{
   background-color: #9FB5A2;
 }
+.search-container {
+  position: relative; 
+}
+
+.suggestion-list {
+
+  max-height: 200px;
+  overflow-y: auto; 
+  position: absolute; 
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+  li{
+    border: 1px solid black;
+    color: #000000;
+    background-color: #ffffff;
+  }
+}
 </style>
+
+
